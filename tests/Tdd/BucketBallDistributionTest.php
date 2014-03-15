@@ -1,19 +1,19 @@
 <?php
 namespace Tdd\Test;
 
-use Tdd\FizzBuzz;
+use Tdd\BucketBallDistribution;
 use \PHPUnit_Framework_TestCase;
 
-class Istart_Judging_DistributionTest extends PHPUnit_Framework_TestCase
+class BucketBallDistributionTest extends PHPUnit_Framework_TestCase
 {
-    private $judgeIds = array();
-    private $applicationIds = array();
-    private $judgesMinApplications = 0;
-    private $applicationsMinJudges = 0;
+    private $bucketIds = array();
+    private $ballIds = array();
+    private $bucketsMinBalls = 0;
+    private $ballsMinBuckets = 0;
     
     protected function setUp ()
     {
-        $this->distributer = new Istart_Judging_Distribution();
+        $this->distributer = new BucketBallDistribution();
         parent::setUp();
     }
     /**
@@ -24,36 +24,36 @@ class Istart_Judging_DistributionTest extends PHPUnit_Framework_TestCase
         $this->email = null;
         parent::tearDown();
     }
-    public function testDistributeOneJudgeToOneApp()
+    public function testDistributeOneBucketToOneApp()
     {
-        $this->judgeIds = array('100');
-        $this->applicationIds = array('200');
+        $this->bucketIds = array('100');
+        $this->ballIds = array('200');
         $results = $this->runDistribution();
         $this->assertEquals(array('100'=>array('200')),$results);
     }
     
-    public function testDistributeOneJudgeToManyApps()
+    public function testDistributeOneBucketToManyApps()
     {
-        $this->judgeIds = array('100');
-        $this->applicationIds = array('201','202','203');
+        $this->bucketIds = array('100');
+        $this->ballIds = array('201','202','203');
         $results = $this->runDistribution();
         $this->assertEquals(array('100'=>array('201','202','203')),$results);
     }
     
-    public function testDistributeManyJudgeToManyApps()
+    public function testDistributeManyBucketToManyApps()
     {
-        $this->judgeIds = array('100','101');
-        $this->applicationIds = array('201','202','203');
+        $this->bucketIds = array('100','101');
+        $this->ballIds = array('201','202','203');
         $results = $this->runDistribution();
         $this->assertEquals(array('100'=>array('201','203'),'101'=>array('202')),$results);
     }
     
-    public function testDistributeManyJudgeToManyAppsLimit1()
+    public function testDistributeManyBucketToManyAppsLimit1()
     {
-        $this->judgeIds = array('100','101','102','103');
-        $this->applicationIds = array('201','202','203','204');
-        $this->applicationsMinJudges = 1;
-        $this->judgesMinApplications = 1;
+        $this->bucketIds = array('100','101','102','103');
+        $this->ballIds = array('201','202','203','204');
+        $this->ballsMinBuckets = 1;
+        $this->bucketsMinBalls = 1;
         
         $results = $this->runDistribution();
         
@@ -66,12 +66,12 @@ class Istart_Judging_DistributionTest extends PHPUnit_Framework_TestCase
         ),$results);
     }
     
-    public function testDistributeManyJudgeToManyAppsLimit3()
+    public function testDistributeManyBucketToManyAppsLimit3()
     {
-        $this->judgeIds = array('100','101','102','103');
-        $this->applicationIds = array('201','202','203','204','205','206','207','208','209','210');
-        $this->applicationsMinJudges = 3;
-        $this->judgesMinApplications = 1;
+        $this->bucketIds = array('100','101','102','103');
+        $this->ballIds = array('201','202','203','204','205','206','207','208','209','210');
+        $this->ballsMinBuckets = 3;
+        $this->bucketsMinBalls = 1;
         
         $results = $this->runDistribution();
         
@@ -84,12 +84,12 @@ class Istart_Judging_DistributionTest extends PHPUnit_Framework_TestCase
         ),$results);
     }
     
-    public function testDistributeManyJudgeToManyAppsLimit6ButCapped()
+    public function testDistributeManyBucketToManyAppsLimit6ButCapped()
     {
-        $this->judgeIds = array('100','101','102','103');
-        $this->applicationIds = array('201','202','203','204','205','206','207','208','209','210');
-        $this->applicationsMinJudges = 6;
-        $this->judgesMinApplications = 1;
+        $this->bucketIds = array('100','101','102','103');
+        $this->ballIds = array('201','202','203','204','205','206','207','208','209','210');
+        $this->ballsMinBuckets = 6;
+        $this->bucketsMinBalls = 1;
         
         $results = $this->runDistribution();
         
@@ -102,12 +102,12 @@ class Istart_Judging_DistributionTest extends PHPUnit_Framework_TestCase
         ),$results);
     }
 
-    public function testDistributeManyAppsToFewJudges()
+    public function testDistributeManyAppsToFewBuckets()
     {
-        $this->judgeIds = array('100','101','102','103');
-        $this->applicationIds = array('201','202','203','204','205','206');
-        $this->applicationsMinJudges = 0;
-        $this->judgesMinApplications = 3;
+        $this->bucketIds = array('100','101','102','103');
+        $this->ballIds = array('201','202','203','204','205','206');
+        $this->ballsMinBuckets = 0;
+        $this->bucketsMinBalls = 3;
         
         $results = $this->runDistribution();
         
@@ -120,12 +120,12 @@ class Istart_Judging_DistributionTest extends PHPUnit_Framework_TestCase
         ),$results);
     }
     
-    public function testDistributeManyAppsToManyJudges3x4()
+    public function testDistributeManyAppsToManyBuckets3x4()
     {
-        $this->judgeIds = array('100','101','102','103');
-        $this->applicationIds = array('201','202','203','204','205','206');
-        $this->applicationsMinJudges = 3;
-        $this->judgesMinApplications = 4;
+        $this->bucketIds = array('100','101','102','103');
+        $this->ballIds = array('201','202','203','204','205','206');
+        $this->ballsMinBuckets = 3;
+        $this->bucketsMinBalls = 4;
         
         $results = $this->runDistribution();
         
@@ -138,12 +138,12 @@ class Istart_Judging_DistributionTest extends PHPUnit_Framework_TestCase
         ),$results);
     }
     
-    public function testDistributeManyAppsToManyJudges6x6()
+    public function testDistributeManyAppsToManyBuckets6x6()
     {
-        $this->judgeIds = array('100','101','102','103','104','105');
-        $this->applicationIds = array('201','202','203','204','205','206');
-        $this->applicationsMinJudges = 5;
-        $this->judgesMinApplications = 2;
+        $this->bucketIds = array('100','101','102','103','104','105');
+        $this->ballIds = array('201','202','203','204','205','206');
+        $this->ballsMinBuckets = 5;
+        $this->bucketsMinBalls = 2;
         
         $results = $this->runDistribution();
         
@@ -157,16 +157,16 @@ class Istart_Judging_DistributionTest extends PHPUnit_Framework_TestCase
         	'105'=>array('206','205','204','203','202')
         ),$results);
     }
-    public function testDistributeManyAppsToManyJudges2x12min7()
+    public function testDistributeManyAppsToManyBuckets2x12min7()
     {
-        $this->judgeIds = array('100','101',);
-        $this->applicationIds = array(
+        $this->bucketIds = array('100','101',);
+        $this->ballIds = array(
         	'201','202','203','204','205','206',
         	'207','208','209','210','211','212'
         );
         
-        $this->applicationsMinJudges = 0;
-        $this->judgesMinApplications = 7;
+        $this->ballsMinBuckets = 0;
+        $this->bucketsMinBalls = 7;
         
         $results = $this->runDistribution();
         
@@ -178,12 +178,12 @@ class Istart_Judging_DistributionTest extends PHPUnit_Framework_TestCase
   
     }
     
-    public function testDistributeManyAppsToManyJudges3x2()
+    public function testDistributeManyAppsToManyBuckets3x2()
     {
-        $this->judgeIds = array('100','101','102');
-        $this->applicationIds = array('201','202');
-        $this->applicationsMinJudges = 1;
-        $this->judgesMinApplications = 1;
+        $this->bucketIds = array('100','101','102');
+        $this->ballIds = array('201','202');
+        $this->ballsMinBuckets = 1;
+        $this->bucketsMinBalls = 1;
         
         $results = $this->runDistribution();
         
@@ -195,17 +195,17 @@ class Istart_Judging_DistributionTest extends PHPUnit_Framework_TestCase
         ),$results);
     }
     
-    public function testDistributeManyAppsToManyJudges16x12()
+    public function testDistributeManyAppsToManyBuckets16x12()
     {
-        $this->judgeIds = array('100','101','102','103','104','105','106','107','108','109','110','112','113','114','115');
-        $this->applicationIds = array('201','202','203','204','205','206','207','208','209','210','211');
-        $this->applicationsMinJudges = 4;
-        $this->judgesMinApplications = 4;
+        $this->bucketIds = array('100','101','102','103','104','105','106','107','108','109','110','112','113','114','115');
+        $this->ballIds = array('201','202','203','204','205','206','207','208','209','210','211');
+        $this->ballsMinBuckets = 4;
+        $this->bucketsMinBalls = 4;
 
         $results = $this->runDistribution();
         
-        $message = $this->distributer->getApplicationPoolMessage();
-        $expectedMessage = "Each application has been assigned 6 times to allow at least 4 judges per application and 4 applications per judge.";
+        $message = $this->distributer->getBallPoolMessage();
+        $expectedMessage = "Each ball has been assigned 6 times to allow at least 4 buckets per ball and 4 balls per bucket.";
         $this->assertEquals($expectedMessage, $message);
         
     }
@@ -213,10 +213,10 @@ class Istart_Judging_DistributionTest extends PHPUnit_Framework_TestCase
     protected function runDistribution()
     {
         $this->distributer
-            ->setJudgeIds($this->judgeIds)
-            ->setApplicationIds($this->applicationIds)
-            ->setJudgesMinApplications($this->judgesMinApplications)
-            ->setApplicationsMinJudges($this->applicationsMinJudges);
+            ->setBucketIds($this->bucketIds)
+            ->setBallIds($this->ballIds)
+            ->setBucketsMinBalls($this->bucketsMinBalls)
+            ->setBallsMinBuckets($this->ballsMinBuckets);
         $this->distributer->run();
         return $this->distributer->getResults();
     }

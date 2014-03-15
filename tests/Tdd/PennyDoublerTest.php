@@ -63,10 +63,10 @@ class PennyDoublerTest extends \PHPUnit_Framework_TestCase
     public function testExerciseDoubler() 
     {
         $days = range(2, 60);
-	$this->printDayAndRate($this->pennyDoubler);
+        //$this->printDayAndRate($this->pennyDoubler);
         foreach($days as $day){
             $this->pennyDoubler->addDay();
-	    $this->printDayAndRate($this->pennyDoubler);
+	        // $this->printDayAndRate($this->pennyDoubler);
         }
         $this->assertTrue(true);
     }

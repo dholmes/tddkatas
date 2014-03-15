@@ -1,7 +1,7 @@
 <?php
 namespace Tdd;
 
-class Distribution
+class BucketBallDistribution
 {
     protected $bucketIds = array();
     protected $ballIds = array();
