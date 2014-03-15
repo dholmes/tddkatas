@@ -1,0 +1,17 @@
+{
+    "name": "dholmes/tddkatas",
+    "description": "Just the playground app for classes, tests, etc",
+    "minimum-stability": "stable",
+    "license":"proprietary",
+    "require": {
+        "phpunit/phpunit": "3.7.*",
+        "phpunit/DbUnit" : "1.2.*",
+        "ircmaxell/password-compat" : "1.0.*"
+    },
+    "autoload": {
+        "psr-0": 
+        {
+            "Tdd": "./Tdd/"
+        }
+    }
+}
