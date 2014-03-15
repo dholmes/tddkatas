@@ -1,3 +1,4 @@
 .vagrant
 /nbproject/private/
 /vendor
+/nbproject
